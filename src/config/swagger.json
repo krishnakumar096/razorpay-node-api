@@ -1,0 +1,350 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample razorpay payment API using Node.js. This document contains the swagger statement to build a microservices based system for the users to create order, payment, refund and query them with parameters.",
+    "version": "1.0.0",
+    "title": "Razorpay Payment API"
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "token",
+      "description": "To get the token for other API"
+    },
+    {
+      "name": "order",
+      "description": "Everything about your orders"
+    },
+    {
+      "name": "payment",
+      "description": "Everything about your payments"
+    },
+    {
+      "name": "refund",
+      "description": "Everything about your refund"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/user/{userId}/auth/token": {
+      "post": {
+        "tags": [
+          "token"
+        ],
+        "description": "This method enables to create the order for user.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Information of the user order",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/tokenRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/{userId}/orders": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "description": "This method enables to create the order for user.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Information of the user order",
+            "schema": {
+              "$ref": "#/definitions/orderRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "description": "This method enables to get all user order list by userId.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/{userId}/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "description": "This method enables to get user order data by userID and orderId.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return data",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of order to return data",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No data found"
+          }
+        }
+      }
+    },
+    "/payments": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "description": "This method enables to get user payment data list.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No data found"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payments": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "description": "This method enables to get user payment data by userID.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No data found"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payments/{paymentId}": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "description": "This method enables to get user payment detail data.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No data found"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payments/{paymentId}/refund": {
+      "post": {
+        "tags": [
+          "refund"
+        ],
+        "description": "This method enables to create the refund for user.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "value to return",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Information of the user refund",
+            "schema": {
+              "$ref": "#/definitions/refundRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Invalid payment id"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "orderRequest": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "example": "100"
+        },
+        "currency": {
+          "type": "string",
+          "example": "INR"
+        }
+      }
+    },
+    "tokenRequest": {
+      "type": "object",
+      "required": [
+        "accessKey"
+      ],
+      "properties": {
+        "amount": {
+          "type": "string",
+          "example": "abc1234"
+        }
+      }
+    },
+    "refundRequest": {
+      "type": "object",
+      "required": [
+        "amount"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "example": "100"
+        }
+      }
+    }
+  }
+}
